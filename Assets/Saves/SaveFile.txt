@@ -1,0 +1,1 @@
+{"playerPos":{"x":3.1904611587524416,"y":1.0,"z":-3.8284733295440676},"playerRot":{"x":0.0,"y":129.9000244140625,"z":0.0},"invenArrayNumber":[9,16],"invenItemName":["Potion Yellow","Rock"],"invenItemNumber":[1,3]}
