@@ -9,6 +9,7 @@ TagManager:
   - NPC
   - WeakAnimal
   - StrongAnimal
+  - Tree
   layers:
   - Default
   - TransparentFX

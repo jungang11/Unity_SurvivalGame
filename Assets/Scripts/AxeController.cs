@@ -22,11 +22,14 @@ public class AxeController : CloseWeaponController
         {
             if (CheckObject())
             {
+                
                 if (hitInfo.transform.tag == "WeakAnimal")
                 {
                     SoundManager.instance.PlaySE("Animal_Hit");
                     hitInfo.transform.GetComponent<WeakAnimal>().Damage(currentCloseWeapon.damage, transform.position);
                 }
+                else if (hitInfo.transform.tag == "Tree")
+                    hitInfo.transform.GetComponent<Tree1>().Cutting();
 
                 //충돌했음
                 isSwing = false;
