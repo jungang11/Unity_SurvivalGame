@@ -688,14 +688,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hp: 3
-  destroyTime: 3
+  destroyTime: 5
   parentCol: {fileID: 7436056454674856149}
   childCol: {fileID: 1964203213643918981}
   rig: {fileID: 1964203213643918980}
   go_tree: {fileID: 7062830036671327204}
   go_stump: {fileID: 7292488373614906087}
-  go_tree_item_prefab: {fileID: 5063483508295303495, guid: 475a894d34d1e0546a485233c21e60ff, type: 3}
-  force: 400
+  go_tree_item_prefab: {fileID: 383898476396914739, guid: 1f111ac2582f1ac48b65bd95507da00f, type: 3}
+  force: 250
   minCount: 1
   maxCount: 5
 --- !u!1 &7436056455432124056
