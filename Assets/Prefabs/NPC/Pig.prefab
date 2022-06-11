@@ -98,6 +98,9 @@ MonoBehaviour:
   sound_Dead: {fileID: 8300000, guid: 08ec9d99bd45f54479f6fb4ff9ab11af, type: 3}
   thePig: {fileID: 3804896506233988193}
   destroyTime: 3
+  go_meat_item_prefab: {fileID: 8431305515553227747, guid: 00838af7eb58cee4091975e1bfbf5e8d, type: 3}
+  minCount: 1
+  maxCount: 5
 --- !u!82 &3804896506233988220
 AudioSource:
   m_ObjectHideFlags: 0

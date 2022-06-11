@@ -11,6 +11,15 @@ public class Pig : WeakAnimal
 
     //public bool pigAlive = true; // 돼지 죽었는지 판단
 
+    [SerializeField]
+    private GameObject go_meat_item_prefab; // 고기 아이템.
+
+    //고기 생성 최소,최대개수
+    [SerializeField]
+    private int minCount;
+    [SerializeField]
+    private int maxCount;
+
     protected override void ReSet()
     {
         base.ReSet();
@@ -20,6 +29,10 @@ public class Pig : WeakAnimal
     // 돼지 사망 시 시체 사라짐
     protected override void Dead() 
     {
+        for (int i = 0; i < Mathf.Round(Random.Range(minCount, maxCount)); i++)
+        {
+            Instantiate(go_meat_item_prefab, thePig.transform.position, Quaternion.identity);
+        }
         base.Dead();
         Destroy(thePig, destroyTime);
         //pigAlive = false;
