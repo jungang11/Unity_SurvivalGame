@@ -19,10 +19,10 @@ public class GUIManager : MonoBehaviour {
 		Rect Map_Rectangle = new Rect(0.03f * Screen.width, 0.05f * Screen.height,
 			0.18f * Screen.width, 0.28f * Screen.height);
 
-		if (Event.current.type == EventType.Repaint) {
+		//if (Event.current.type == EventType.Repaint) {
 
-			Graphics.DrawTexture (Map_Rectangle, MiniMapTexture, MiniMapMaterial);
+		//	Graphics.DrawTexture (Map_Rectangle, MiniMapTexture, MiniMapMaterial);
 			
-		}
+		//}
 }
 }
