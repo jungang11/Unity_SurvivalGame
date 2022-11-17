@@ -7,7 +7,7 @@ public class Inventory : MonoBehaviour
     public static bool inventoryActivated = false;
 
 
-    //ÇÊ¿äÇÑ ÄÄÆ÷³ÍÆ®
+    //ï¿½Ê¿ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®
     [SerializeField]
     private GameObject go_InventoryBase;
     [SerializeField]
@@ -16,7 +16,7 @@ public class Inventory : MonoBehaviour
     public ItemEffectDatabase theItemEffectDatabase;
 
 
-    //½½·Ôµé
+    //ï¿½ï¿½ï¿½Ôµï¿½
     private Slot[] slots;
 
     public Slot[] GetSlots() { return slots; }
@@ -67,7 +67,7 @@ public class Inventory : MonoBehaviour
     {
         GameManager.isOpenInventory = false;
         go_InventoryBase.SetActive(false);
-        //ÀÎº¥Åä¸® ´ÝÀ¸¸é ÅøÆÁµµ ´ÝÈû
+        //ï¿½Îºï¿½ï¿½ä¸® ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
         theItemEffectDatabase.HideToolTip();
 
     }
