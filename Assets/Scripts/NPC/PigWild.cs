@@ -4,6 +4,19 @@ using UnityEngine;
 
 public class PigWild : StrongAnimal
 {
+    [SerializeField]
+    private GameObject thePig;
+    [SerializeField]
+    private float destroyTime;
+
+
+    protected override void Dead()
+    {
+        base.Dead();
+        Destroy(thePig, destroyTime);
+        //pigAlive = false;
+    }
+
     protected override void Update()
     {
         base.Update();
@@ -13,6 +26,5 @@ public class PigWild : StrongAnimal
             StartCoroutine(ChaseTargetCoroutine());
         }
     }
-
 
 }

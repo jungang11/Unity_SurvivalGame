@@ -119,12 +119,20 @@ public class GunController : MonoBehaviour
                         0)
             , out hitInfo, currentGun.range, layerMask))
         {
+
             if (hitInfo.transform.tag == "WeakAnimal")
             {
                 hitInfo.transform.GetComponent<WeakAnimal>().Damage(currentGun.damage, transform.position);
             }
+
+            if (hitInfo.transform.tag == "StrongAnimal")
+            {
+                hitInfo.transform.GetComponent<StrongAnimal>().Damage(currentGun.damage, transform.position);
+            }
+
             GameObject clone = Instantiate(hit_effect_prefab, hitInfo.point, Quaternion.LookRotation(hitInfo.normal));
             Destroy(clone, 2f);
+
         }
     }
 

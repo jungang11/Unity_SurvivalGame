@@ -311,7 +311,7 @@ ModelImporter:
     second: death_3
   - first:
       74: 7400038
-    second: Pigman_Hit
+    second: Pigman_Hurt
   - first:
       74: 7400040
     second: hit_1
@@ -804,7 +804,7 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
-      name: Pigman_Hit
+      name: Pigman_Hurt
       takeName: hit_0
       internalID: 0
       firstFrame: 0

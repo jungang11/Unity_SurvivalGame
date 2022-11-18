@@ -17,6 +17,7 @@ public class StrongAnimal : Animal
     [SerializeField]
     protected float ChaseDelayTime; // √ﬂ∞› µÙ∑π¿Ã
 
+
     public void Chase(Vector3 _targetPos)
     {
         isChasing = true;
