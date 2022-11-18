@@ -20,6 +20,15 @@ public class Pig : WeakAnimal
     [SerializeField]
     private int maxCount;
 
+    protected override void Update()
+    {
+        base.Update();
+        if(theViewAngle.View() && !isDead)
+        {
+            Run(theViewAngle.GetTargetPos()); // 눈 앞에 보이면 도망감
+        }
+}
+
     protected override void ReSet()
     {
         base.ReSet();
@@ -56,18 +65,18 @@ public class Pig : WeakAnimal
     private void Wait()
     {
         currentTime = waitTime;
-        Debug.Log("대기");
+        /*Debug.Log("대기");*/
     }
     private void Eat()
     {
         currentTime = waitTime;
         anim.SetTrigger("Eat");
-        Debug.Log("풀뜯기");
+        /*Debug.Log("풀뜯기");*/
     }
     private void Peek()
     {
         currentTime = waitTime;
         anim.SetTrigger("Peek");
-        Debug.Log("두리번");
+        /*Debug.Log("두리번");*/
     }
 }

@@ -5,6 +5,8 @@ using UnityEngine.AI;
 
 public class Animal : MonoBehaviour
 {
+    protected StatusController thePlayerStatus;
+
     [SerializeField]
     protected string animalName; // 동물의 이름
     [SerializeField]
@@ -21,6 +23,8 @@ public class Animal : MonoBehaviour
     protected bool isAction;// 행동 중인지 아닌지 판별
     protected bool isWalking; // 걷는지 안 걷는지 판별.
     protected bool isRunning; // 뛰는지 판별.
+    protected bool isChasing; // 추격중인지 판별
+    protected bool isAttacking; // 공격중인지 판별.
     [HideInInspector]
     public bool isDead; // 죽었는지 판별
     // FieldOfViewAngle에서 사용하기 위해 public 사용
@@ -43,6 +47,7 @@ public class Animal : MonoBehaviour
     protected BoxCollider boxCol;
     protected AudioSource theAudio;
     protected NavMeshAgent nav;
+    protected FieldOfViewAngle theViewAngle;
 
     [SerializeField]
     protected AudioClip[] sound_Normal;
@@ -52,6 +57,8 @@ public class Animal : MonoBehaviour
     protected AudioClip sound_Dead;
     void Start()
     {
+        thePlayerStatus = FindObjectOfType<StatusController>();
+        theViewAngle = GetComponent<FieldOfViewAngle>();
         nav = GetComponent<NavMeshAgent>();
         theAudio = GetComponent<AudioSource>();
         currentTime = waitTime;
@@ -60,7 +67,7 @@ public class Animal : MonoBehaviour
 
 
     // Update is called once per frame
-    void Update()
+    protected virtual void Update()
     {
         if (!isDead)
         {
@@ -77,21 +84,12 @@ public class Animal : MonoBehaviour
             nav.SetDestination(transform.position + destination * 5f);
     }
 
-    //protected void Rotation()
-    //{
-    //    if (isWalking || isRunning)
-    //    {
-    //        Vector3 _rotation = Vector3.Lerp(transform.eulerAngles, new Vector3(0f, direction.y, 0f), turningSpeed);
-    //        rigid.MoveRotation(Quaternion.Euler(_rotation));
-    //    }
-    //}
-
     protected void ElapseTime()
     {
         if (isAction)
         {
             currentTime -= Time.deltaTime;
-            if (currentTime <= 0)
+            if (currentTime <= 0 && !isChasing && !isAttacking)
                 ReSet();
         }
     }
@@ -108,9 +106,6 @@ public class Animal : MonoBehaviour
         destination.Set(Random.Range(-0.2f, 0.2f), 0f, Random.Range(0.5f, 1f));
         //RandomAction();
     }
-
-
-
 
     protected void TryWalk()
     {
