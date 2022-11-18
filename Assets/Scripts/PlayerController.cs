@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    //½ºÇÇµå Á¶Á¤ º¯¼ö
+    //ï¿½ï¿½ï¿½Çµï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
     [SerializeField]
     private float walkSpeed;
     [SerializeField]
@@ -23,36 +23,36 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     private float jumpForce;
 
-    //»óÅÂ º¯¼ö
+    //ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
     private bool isWalk = false;
     public static bool isRun = false;
     private bool isCrouch = false;
     private bool isGround = true;
 
-    //¿òÁ÷ÀÓ Ã¼Å© º¯¼ö
+    //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Ã¼Å© ï¿½ï¿½ï¿½ï¿½
     private Vector3 lastPos;
 
-    //¾É¾ÒÀ» ¶§ ¾ó¸¶³ª ¾ÉÀ» Áö °áÁ¤ÇÏ´Â º¯¼ö.
+    //ï¿½É¾ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ó¸¶³ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½ ï¿½ï¿½ï¿½ï¿½.
     [SerializeField]
     private float crouchPosY;
     private float originPosY;
     private float applyCrouchPosY;
 
-    // ¶¥ ÂøÁö ¿©ºÎ
+    // ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
     private CapsuleCollider capsuleCollider;
 
 
 
-    //¹Î°¨µµ
+    //ï¿½Î°ï¿½ï¿½ï¿½
     [SerializeField]
     private float lookSensitivity;
 
-    //Ä«¸Þ¶ó ÇÑ°è
+    //Ä«ï¿½Þ¶ï¿½ ï¿½Ñ°ï¿½
     [SerializeField]
     private float cameraRotationLimit;
     private float currentCameraRotationX = 0;
 
-    //ÇÊ¿äÇÑ ÄÄÆ÷³ÍÆ®
+    //ï¿½Ê¿ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®
     [SerializeField]
     private Camera theCamera;
     private Rigidbody myRigid;
@@ -70,7 +70,7 @@ public class PlayerController : MonoBehaviour
         theCrosshair = FindObjectOfType<Crosshair>();
         theStatusController = FindObjectOfType<StatusController>();
 
-        //ÃÊ±âÈ­
+        //ï¿½Ê±ï¿½È­
         applySpeed = walkSpeed;
         originPosY = theCamera.transform.localPosition.y;
         applyCrouchPosY = originPosY;
@@ -91,8 +91,11 @@ public class PlayerController : MonoBehaviour
             }
             TryCrouch();
             Move();
-            CameraRotation();
-            CharacterRotation();
+            if (!CraftManual.craftManualActivated)
+            {
+                CameraRotation();
+                CharacterRotation();
+            }
         }
     }
 
@@ -112,7 +115,7 @@ public class PlayerController : MonoBehaviour
         MoveCheck();
     }
 
-    //¾É±â ½Ãµµ
+    //ï¿½É±ï¿½ ï¿½Ãµï¿½
     private void TryCrouch()
     {
         if (Input.GetKeyDown(KeyCode.LeftControl))
@@ -121,7 +124,7 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    //¾É±âµ¿ÀÛ
+    //ï¿½É±âµ¿ï¿½ï¿½
     private void Crouch()
     {
         isCrouch = !isCrouch;
@@ -150,7 +153,7 @@ public class PlayerController : MonoBehaviour
     }
 
 
-    //ºÎµå·¯¿î ¾É±âµ¿ÀÛ
+    //ï¿½Îµå·¯ï¿½ï¿½ ï¿½É±âµ¿ï¿½ï¿½
     IEnumerator CrouchCoroutine()
     {
         float _posY = theCamera.transform.localPosition.y;
@@ -159,7 +162,7 @@ public class PlayerController : MonoBehaviour
         while(_posY != applyCrouchPosY)
         {
             count++;
-            _posY = Mathf.Lerp(_posY, applyCrouchPosY, 0.1f); //¿µ»ó¿¡¼± 0.3f
+            _posY = Mathf.Lerp(_posY, applyCrouchPosY, 0.1f); //ï¿½ï¿½ï¿½ó¿¡¼ï¿½ 0.3f
             theCamera.transform.localPosition = new Vector3(0, _posY, 0);
             if (count > 15)
                 break;
@@ -168,14 +171,14 @@ public class PlayerController : MonoBehaviour
         theCamera.transform.localPosition = new Vector3(0, applyCrouchPosY, 0f);
     }
 
-    //Áö¸é Ã¼Å©
+    //ï¿½ï¿½ï¿½ï¿½ Ã¼Å©
     private void IsGround()
     {
         isGround = Physics.Raycast(transform.position, Vector3.down, capsuleCollider.bounds.extents.y + 0.1f);
         theCrosshair.JumpingAnimation(!isGround);
     }
 
-    //Á¡ÇÁ ½Ãµµ
+    //ï¿½ï¿½ï¿½ï¿½ ï¿½Ãµï¿½
     private void TryJump()
     {
         if(Input.GetKeyDown(KeyCode.Space) && isGround && theStatusController.GetCurrentSP() > 0 && !GameManager.isWater)
@@ -191,14 +194,14 @@ public class PlayerController : MonoBehaviour
 
     private void Jump()
     {
-        // ¾ÉÀº »óÅÂ¿¡¼­ Á¡ÇÁ ½Ã ¾É±â ÇØÁ¦
+        // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Â¿ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½É±ï¿½ ï¿½ï¿½ï¿½ï¿½
         if (isCrouch) 
             Crouch();
         theStatusController.DecreaseStamina(100);
         myRigid.velocity = transform.up * jumpForce;
     }
 
-    //´Þ¸®±â ½Ãµµ
+    //ï¿½Þ¸ï¿½ï¿½ï¿½ ï¿½Ãµï¿½
     private void TryRun()
     {
         if(Input.GetKey(KeyCode.LeftShift) && theStatusController.GetCurrentSP() > 0)
@@ -211,10 +214,10 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    //´Þ¸®±â ½ÇÇà
+    //ï¿½Þ¸ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
     private void Running()
     {
-        // ¾ÉÀº »óÅÂ¿¡¼­ ´Þ¸®±â ½Ã ¾É±â ÇØÁ¦
+        // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Â¿ï¿½ï¿½ï¿½ ï¿½Þ¸ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½É±ï¿½ ï¿½ï¿½ï¿½ï¿½
         if (isCrouch)
             Crouch();
 
@@ -227,7 +230,7 @@ public class PlayerController : MonoBehaviour
     }
 
 
-    //´Þ¸®±â Ãë¼Ò
+    //ï¿½Þ¸ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
     private void RunningCancel()
     {
         isRun = false;
@@ -235,7 +238,7 @@ public class PlayerController : MonoBehaviour
         applySpeed = walkSpeed;
     }
 
-    // ¿òÁ÷ÀÓ ½ÇÇà
+    // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
     private void Move()
     {
         float _moveDirX = Input.GetAxisRaw("Horizontal");
@@ -267,7 +270,7 @@ public class PlayerController : MonoBehaviour
 
     private void CameraRotation()
     {
-        //»óÇÏ Ä«¸Þ¶ó È¸Àü
+        //ï¿½ï¿½ï¿½ï¿½ Ä«ï¿½Þ¶ï¿½ È¸ï¿½ï¿½
         float _xRotation = Input.GetAxisRaw("Mouse Y");
         float _cameraRotationX = _xRotation * lookSensitivity;
         currentCameraRotationX -= _cameraRotationX;
@@ -278,7 +281,7 @@ public class PlayerController : MonoBehaviour
 
     private void CharacterRotation()
     {
-        //ÁÂ¿ì Ä³¸¯ÅÍ È¸Àü
+        //ï¿½Â¿ï¿½ Ä³ï¿½ï¿½ï¿½ï¿½ È¸ï¿½ï¿½
         float _yRotation = Input.GetAxisRaw("Mouse X");
         Vector3 _characterRotationY = new Vector3(0f, _yRotation, 0f) * lookSensitivity;
         myRigid.MoveRotation(myRigid.rotation * Quaternion.Euler(_characterRotationY));
