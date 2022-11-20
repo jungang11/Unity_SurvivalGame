@@ -14,7 +14,6 @@ public class CraftManual : MonoBehaviour
 {
     public static bool craftManualActivated = false;
 
-
     // 상태변수
     private bool isActivated = false;
     private bool isPreviewActivated = false;
@@ -40,12 +39,10 @@ public class CraftManual : MonoBehaviour
 
     public void SlotClick(int _slotNumber)
     {
-
         go_Preview = Instantiate(craft_fire[_slotNumber].go_PreviewPrefab, tf_Player.position + tf_Player.forward, Quaternion.identity);
-        go_Prefab = craft_fire[_slotNumber].go_Prefab;
+        //go_Prefab = craft_fire[_slotNumber].go_Prefab;
         isPreviewActivated = true;
-        CloseWindow();
-        //go_BaseUI.SetActive(false);
+        go_BaseUI.SetActive(false);
 
     }
 
@@ -53,63 +50,59 @@ public class CraftManual : MonoBehaviour
     void Update()
     {
 
-        Window();
+        if (Input.GetKeyDown(KeyCode.Tab) && !isPreviewActivated)
+            Window();
 
-        if (isPreviewActivated)
-            PreviewPositionUpdate();
+        //if (isPreviewActivated)
+        //    PreviewPositionUpdate();
 
-        if (Input.GetButtonDown("Fire1"))
-            Build();
+        //if (Input.GetButtonDown("Fire1"))
+        //    Build();
 
         if (Input.GetKeyDown(KeyCode.Escape))
             Cancel();
     }
 
-    private void Build()
-    {
-        if (isPreviewActivated)
-        {
-            Instantiate(go_Prefab, hitInfo.point, Quaternion.identity);
-            Destroy(go_Preview);
-            isActivated = false;
-            isPreviewActivated = false;
-            go_Prefab = null;
-            go_Preview = null;
-        }
-    }
+    //private void Build()
+    //{
+    //    if (isPreviewActivated)
+    //    {
+    //        Instantiate(go_Prefab, hitInfo.point, Quaternion.identity);
+    //        Destroy(go_Preview);
+    //        isActivated = false;
+    //        isPreviewActivated = false;
+    //        go_Prefab = null;
+    //        go_Preview = null;
+    //    }
+    //}
 
-    private void PreviewPositionUpdate()
-    {
-        Debug.Log("Preview위치함수 실행");
-        Debug.Log("physicsif문,");
-        Debug.Log("th_Player.position" + tf_Player.position);
-        Debug.Log("player.forward" + tf_Player.forward);
-        Debug.Log("hitinfo" + hitInfo);
-        Debug.Log("layermask" + layerMask);
-        Debug.Log(Physics.Raycast(tf_Player.position, tf_Player.forward, out hitInfo, range, layerMask));
-        if (Physics.Raycast(tf_Player.position, tf_Player.forward, out hitInfo, range, layerMask))
-        {
-            Debug.Log("광선이 어딘가에 맞는중");
-            if (hitInfo.transform != null)
-            {
-                Vector3 _location = hitInfo.point;
-                Debug.Log(hitInfo);
-                go_Preview.transform.position = _location;
-            }
-        }
-    }
+    //private void PreviewPositionUpdate()
+    //{
+    //    Debug.Log("Preview위치함수 실행");
+    //    Debug.Log("physicsif문,");
+    //    Debug.Log("th_Player.position" + tf_Player.position);
+    //    Debug.Log("player.forward" + tf_Player.forward);
+    //    Debug.Log("hitinfo" + hitInfo);
+    //    Debug.Log("layermask" + layerMask);
+    //    Debug.Log(Physics.Raycast(tf_Player.position, tf_Player.forward, out hitInfo, range, layerMask));
+    //    if (Physics.Raycast(tf_Player.position, tf_Player.forward, out hitInfo, range, layerMask))
+    //    {
+    //        Debug.Log("광선이 어딘가에 맞는중");
+    //        if (hitInfo.transform != null)
+    //        {
+    //            Vector3 _location = hitInfo.point;
+    //            Debug.Log(hitInfo);
+    //            go_Preview.transform.position = _location;
+    //        }
+    //    }
+    //}
 
     private void Window()
     {
-        if (Input.GetKeyDown(KeyCode.Tab))
-        {
-            craftManualActivated = !craftManualActivated;
-
-            if (craftManualActivated)
-                OpenWindow();
-            else
-                CloseWindow();
-        }
+        if (!isActivated)
+            OpenWindow();
+        else
+            CloseWindow();
 
     }
 
@@ -121,8 +114,8 @@ public class CraftManual : MonoBehaviour
         isActivated = false;
         isPreviewActivated = false;
         go_Preview = null;
-        go_Prefab = null;
-
+        //go_Prefab = null;
+        //GameManager.isOpenCraftManual = false;
         go_BaseUI.SetActive(false);
 
     }
@@ -130,14 +123,14 @@ public class CraftManual : MonoBehaviour
 
     private void OpenWindow()
     {
-        GameManager.isOpenCraftManual = true;
+        //GameManager.isOpenCraftManual = true;
         isActivated = true;
         go_BaseUI.SetActive(true);
     }
 
     private void CloseWindow()
     {
-        GameManager.isOpenCraftManual = false;
+        //GameManager.isOpenCraftManual = false;
         isActivated = false;
         go_BaseUI.SetActive(false);
     }
