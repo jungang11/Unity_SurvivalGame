@@ -4,14 +4,14 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    public static bool canPlayerMove = true; // ÇÃ·¹ÀÌ¾îÀÇ ¿òÁ÷ÀÓ Á¦¾î
-
-    public static bool isOpenInventory = false; // ÀÎº¥Åä¸® È°¼ºÈ­
+    public static bool canPlayerMove = true; // ï¿½Ã·ï¿½ï¿½Ì¾ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+    public static bool isOpenCraftManual = false;
+    public static bool isOpenInventory = false; // ï¿½Îºï¿½ï¿½ä¸® È°ï¿½ï¿½È­
 
     public static bool isNight = false;
     public static bool isWater = false;
-    public static bool isPause = false; // ¸Þ´º°¡ È£ÃâµÇ¸é true
-    public static bool isGuide = false; // Á¶ÀÛ¹ýÀÌ È£ÃâµÇ¸é true
+    public static bool isPause = false; // ï¿½Þ´ï¿½ï¿½ï¿½ È£ï¿½ï¿½Ç¸ï¿½ true
+    public static bool isGuide = false; // ï¿½ï¿½ï¿½Û¹ï¿½ï¿½ï¿½ È£ï¿½ï¿½Ç¸ï¿½ true
 
     private WeaponManager theWM;
     private bool flag = false;
@@ -19,7 +19,7 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (isOpenInventory || isPause || isGuide)
+        if (isOpenInventory || isPause || isGuide || isOpenCraftManual)
         {
             Cursor.lockState = CursorLockMode.None;
             Cursor.visible = true;
