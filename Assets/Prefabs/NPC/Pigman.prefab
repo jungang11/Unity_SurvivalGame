@@ -278,12 +278,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animalName: PigWild
   hp: 100
+  inithp: 100
   walkSpeed: 2
   runSpeed: 4.5
   isDead: 0
   walkTime: 2
   waitTime: 2
   runTime: 3
+  hpBarPrefab: {fileID: 3803226678287470195, guid: 8687340d55df34e42b6bf40ce10f4a53, type: 3}
+  hpBarOffset: {x: 0, y: 4, z: 0}
   anim: {fileID: 1823489480275584774}
   rigid: {fileID: 1823489479351664044}
   boxCol: {fileID: 1823489479351664045}

@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.UI;
 
 public class Animal : MonoBehaviour
 {
@@ -11,6 +12,8 @@ public class Animal : MonoBehaviour
     protected string animalName; // 동물의 이름
     [SerializeField]
     protected int hp; // 동물의 체력
+    [SerializeField]
+    protected int inithp; 
 
     [SerializeField]
     protected float walkSpeed; // 걷기 스피드
@@ -38,6 +41,11 @@ public class Animal : MonoBehaviour
 
     protected float currentTime;
 
+    public GameObject hpBarPrefab;
+    public Vector3 hpBarOffset = new Vector3(0, 4f, 0);
+    private Canvas uiCanvas;
+    private Image hpBarImage;
+
     // 필요한 컴포넌트
     [SerializeField]
     protected Animator anim;
@@ -63,6 +71,7 @@ public class Animal : MonoBehaviour
         theAudio = GetComponent<AudioSource>();
         currentTime = waitTime;
         isAction = true;
+        SetHpBar();
     }
 
 
@@ -75,6 +84,17 @@ public class Animal : MonoBehaviour
             //Rotation();
             ElapseTime();
         }
+    }
+
+    void SetHpBar()
+    {
+        uiCanvas = GameObject.Find("HpBar Canvas").GetComponent<Canvas>();
+        GameObject hpBar = Instantiate<GameObject>(hpBarPrefab, uiCanvas.transform);
+        hpBarImage = hpBar.GetComponentsInChildren<Image>()[1];
+
+        var _hpbar = hpBar.GetComponent<EnemyHpBar>();
+        _hpbar.targetTr = this.gameObject.transform;
+        _hpbar.offset = hpBarOffset;
     }
 
     protected void Move()
@@ -121,10 +141,12 @@ public class Animal : MonoBehaviour
         if (!isDead)
         {
             hp -= _dmg;
+            hpBarImage.fillAmount = (float)hp/inithp;
 
             if (hp <= 0)
             {
                 Dead();
+                
                 return;
             }
 
@@ -142,6 +164,7 @@ public class Animal : MonoBehaviour
         isDead = true;
         nav.speed = 0; // 그 자리에 멈춤
         anim.SetTrigger("Dead");
+        hpBarImage.GetComponentsInParent<Image>()[1].color = Color.clear;
     }
 
     protected void RandomSound()
