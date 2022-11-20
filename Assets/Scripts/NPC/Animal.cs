@@ -91,7 +91,8 @@ public class Animal : MonoBehaviour
         uiCanvas = GameObject.Find("HpBar Canvas").GetComponent<Canvas>();
         GameObject hpBar = Instantiate<GameObject>(hpBarPrefab, uiCanvas.transform);
         hpBarImage = hpBar.GetComponentsInChildren<Image>()[1];
-
+        hpBarImage.GetComponentsInParent<Image>()[0].color = Color.clear;
+        hpBarImage.GetComponentsInParent<Image>()[1].color = Color.clear;
         var _hpbar = hpBar.GetComponent<EnemyHpBar>();
         _hpbar.targetTr = this.gameObject.transform;
         _hpbar.offset = hpBarOffset;
@@ -142,7 +143,8 @@ public class Animal : MonoBehaviour
         {
             hp -= _dmg;
             hpBarImage.fillAmount = (float)hp/inithp;
-
+            hpBarImage.GetComponentsInParent<Image>()[0].color = Color.red;
+            hpBarImage.GetComponentsInParent<Image>()[1].color = Color.white;
             if (hp <= 0)
             {
                 Dead();
