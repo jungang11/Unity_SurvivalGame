@@ -62,6 +62,9 @@ public class StatusController : MonoBehaviour
     [SerializeField]
     private Image[] images_Gauge;
 
+    [SerializeField]
+    private GameObject damage;
+
     private const int HP = 0, DP = 1, SP = 2, HUNGRY = 3, THIRSTY = 4, SATISFY = 5;
 
 
@@ -163,7 +166,7 @@ public class StatusController : MonoBehaviour
             return;
         }
         currentHp -= _count;
-
+        StartCoroutine(ShowDamage());
         if (currentHp <= 0)
             Debug.Log("캐릭터의 hp가 0이 되었습니다!!");
     }
@@ -195,7 +198,7 @@ public class StatusController : MonoBehaviour
     public void DecreaseDP(int _count)
     {
         currentDp -= _count;
-
+        StartCoroutine(ShowDamage());
         if (currentDp <= 0)
             Debug.Log("방어력이 0이 되었습니다!!");
     }
@@ -249,5 +252,12 @@ public class StatusController : MonoBehaviour
     public int GetCurrentSP()
     {
         return currentSp;
+    }
+    
+    IEnumerator ShowDamage()
+    {
+        damage.SetActive(true);
+        yield return new WaitForSeconds(1f);
+        damage.SetActive(false);
     }
 }
