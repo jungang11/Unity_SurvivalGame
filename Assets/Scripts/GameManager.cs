@@ -12,6 +12,7 @@ public class GameManager : MonoBehaviour
     public static bool isWater = false;
     public static bool isPause = false; // 메뉴가 호출되면 true
     public static bool isGuide = false; // 조작법이 호출되면 true
+    public static bool isOpenCraftManual = false;
 
     private WeaponManager theWM;
     private bool flag = false;
@@ -19,7 +20,7 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (isOpenInventory || isPause || isGuide)
+        if (isOpenInventory || isPause || isGuide || isOpenCraftManual)
         {
             Cursor.lockState = CursorLockMode.None;
             Cursor.visible = true;
